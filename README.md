@@ -10,14 +10,13 @@ A modern and visually appealing Mustang-themed landing page created as an AI-ass
 - Vite
 ## 📸 Webpage Preview
 
-## 📸 Webpage Preview
-
-## 📸 Webpage Preview
 
 ![Mustang Landing Page](meow/Screenshot%202026-09-11%20182957.png)
+## 📸 Webpage Previe
 
 ![Mustang Landing Page](meow/Screenshot%202026-09-11%20183118.png)
 
+## 📸 Webpage Preview
 ![Mustang Landing Page](meow/Screenshot%202026-09-11%20183153.png)
 ## ✨ Features
 
