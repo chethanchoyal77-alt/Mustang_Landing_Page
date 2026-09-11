@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-racing-300: #ff8a8a;
+  --color-racing-400: #ff4d4d;
+  --color-racing-500: #e8112d;
+  --color-racing-600: #c40822;
+  --color-racing-700: #97051a;
+
+  --color-carbon-800: #1b1b1f;
+  --color-carbon-900: #121215;
+  --color-carbon-950: #0a0a0b;
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-hero-zoom: hero-zoom 14s ease-out forwards;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(232, 17, 45, 0.6);
+    }
+    50% {
+      opacity: 0.75;
+      box-shadow: 0 0 0 10px rgba(232, 17, 45, 0);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-carbon-950);
+  color: #f4f4f5;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-racing-500);
+  color: #fff;
+}
+
+/* Slim custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0b;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2e;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e8112d;
+}
+
+/* Outlined display text */
+.text-outline {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+  color: transparent;
+}
+
+.text-outline-red {
+  -webkit-text-stroke: 1px rgba(232, 17, 45, 0.55);
+  color: transparent;
+}
+
+/* Diagonal racing stripes */
+.racing-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(232, 17, 45, 0.16) 0px,
+    rgba(232, 17, 45, 0.16) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+}
+
+/* Carbon fiber-ish dot texture */
+.carbon-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 22px 22px;
+}

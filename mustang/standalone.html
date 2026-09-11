@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Mustang — sixty years of American muscle. Explore the heritage, performance and legacy of the world's most iconic pony car." />
+<title>Mustang — Unleash the Beast | Iconic American Muscle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ============ THEME ============ */
+  :root {
+    --red: #e8112d;
+    --red-400: #ff4d4d;
+    --red-600: #c40822;
+    --carbon: #0a0a0b;
+    --carbon-2: #121215;
+    --carbon-3: #1b1b1f;
+    --zinc-300: #d4d4d8;
+    --zinc-400: #a1a1aa;
+    --zinc-500: #71717a;
+    --zinc-600: #52525b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--carbon);
+    color: #f4f4f5;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--red); color: #fff; }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--carbon); }
+  ::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--red); }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .font-display { font-family: "Bebas Neue", "Arial Narrow", sans-serif; }
+
+  /* Outlined display text */
+  .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.22); color: transparent; }
+  .text-outline-red { -webkit-text-stroke: 1px rgba(232,17,45,0.55); color: transparent; }
+  .text-red { color: var(--red); }
+
+  /* Racing stripes texture */
+  .stripes {
+    background-image: repeating-linear-gradient(-45deg,
+      rgba(232,17,45,0.16) 0px, rgba(232,17,45,0.16) 2px, transparent 2px, transparent 14px);
+  }
+  /* Carbon dots texture */
+  .dots {
+    background-image: radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .kicker {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--red-400);
+  }
+  .kicker::before { content: ""; width: 40px; height: 1px; background: var(--red); }
+  .kicker.center::after { content: ""; width: 40px; height: 1px; background: rgba(255,255,255,0.5); }
+  .kicker.center { justify-content: center; color: #fff; }
+  .kicker.center::before { background: rgba(255,255,255,0.5); }
+
+  .section-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(48px, 7vw, 72px);
+    line-height: 0.95; letter-spacing: 0.03em; color: #fff;
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Buttons */
+  .btn-red {
+    position: relative; display: inline-block; overflow: hidden;
+    background: var(--red); color: #fff;
+    padding: 16px 32px; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(232,17,45,0.3);
+    transition: background .3s; border: none; cursor: pointer; font-family: inherit;
+  }
+  .btn-red:hover { background: var(--red-400); }
+  .btn-red .shine {
+    position: absolute; inset: 0; transform: translateX(-100%);
+    background: rgba(255,255,255,0.2); transition: transform .5s;
+  }
+  .btn-red:hover .shine { transform: translateX(0); }
+  .btn-red span { position: relative; z-index: 1; }
+  .btn-ghost {
+    display: inline-block; border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; padding: 16px 32px; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    transition: border-color .3s, color .3s;
+  }
+  .btn-ghost:hover { border-color: var(--red); color: var(--red-400); }
+
+  /* ============ NAVBAR ============ */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    transition: background .4s, border-color .4s, backdrop-filter .4s;
+    border-bottom: 1px solid transparent;
+  }
+  header.scrolled {
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom-color: rgba(255,255,255,0.1);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px; padding: 0 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-badge {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--red); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Bebas Neue", sans-serif; font-size: 22px;
+    box-shadow: 0 4px 20px rgba(232,17,45,0.35);
+    transition: transform .3s;
+  }
+  .logo:hover .logo-badge { transform: rotate(12deg); }
+  .logo-text { font-family: "Bebas Neue", sans-serif; font-size: 24px; letter-spacing: 0.25em; color: #fff; }
+  .logo-text b { color: var(--red); font-weight: 400; }
+  nav.links { display: flex; align-items: center; gap: 32px; }
+  nav.links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--zinc-400);
+    transition: color .3s;
+  }
+  nav.links a:hover { color: var(--red-400); }
+  nav.links .btn-red { padding: 12px 20px; font-size: 12px; }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .hamburger span {
+    display: block; width: 24px; height: 2px; background: #fff;
+    margin: 6px 0; transition: transform .3s, opacity .3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  .mobile-menu {
+    display: none; background: rgba(10,10,11,0.97); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.1); padding: 8px 24px 20px;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; padding: 12px 8px; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--zinc-300);
+    border-radius: 6px; transition: color .2s, background .2s;
+  }
+  .mobile-menu a:hover { color: var(--red-400); background: rgba(255,255,255,0.05); }
+  .mobile-menu .btn-red { margin-top: 12px; text-align: center; }
+
+  /* ============ HERO ============ */
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; }
+  .hero-bg img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    animation: heroZoom 14s ease-out forwards;
+  }
+  @keyframes heroZoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+  .hero-bg .overlay-lr {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--carbon) 0%, rgba(10,10,11,0.7) 55%, rgba(10,10,11,0.2) 100%);
+  }
+  .hero-bg .overlay-tb {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, var(--carbon) 0%, transparent 45%, rgba(10,10,11,0.6) 100%);
+  }
+  .hero-bg .stripes { position: absolute; inset: 0; opacity: 0.6; }
+  .hero-content {
+    position: relative; z-index: 2; flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 140px 24px 60px; max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+  .hero-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(64px, 12vw, 152px);
+    line-height: 0.9; letter-spacing: 0.02em; color: #fff;
+  }
+  .hero-title .grad {
+    background: linear-gradient(180deg, var(--red-400), var(--red-600));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-sub {
+    margin-top: 24px; max-width: 560px; font-size: 18px; line-height: 1.7; color: var(--zinc-300);
+  }
+  .hero-cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .hero-stats {
+    position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.1);
+    background: rgba(10,10,11,0.6); backdrop-filter: blur(10px);
+  }
+  .hero-stats .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; padding: 32px 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .stat { text-align: center; }
+  .stat b {
+    font-family: "Bebas Neue", sans-serif; font-size: 44px; font-weight: 400;
+    letter-spacing: 0.05em; color: #fff;
+  }
+  .stat small {
+    display: block; margin-top: 4px; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--zinc-400);
+  }
+
+  /* ============ TICKER ============ */
+  .ticker { background: var(--red); border-block: 1px solid rgba(255,255,255,0.15); overflow: hidden; padding: 12px 0; }
+  .ticker-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-track span {
+    display: flex; align-items: center; white-space: nowrap;
+    font-family: "Bebas Neue", sans-serif; font-size: 20px;
+    letter-spacing: 0.3em; text-transform: uppercase; color: #fff; padding: 0 24px;
+  }
+  .ticker-track svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
+
+  /* ============ HERITAGE ============ */
+  .section { padding: 110px 0; position: relative; }
+  .bg-alt { background: var(--carbon-2); }
+  .heritage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .heritage-media { position: sticky; top: 110px; }
+  .frame-red { position: absolute; top: -24px; left: -24px; width: 160px; height: 160px; border-top: 2px solid var(--red); border-left: 2px solid var(--red); }
+  .heritage-media .main-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+  .heritage-media .small-img {
+    position: absolute; right: -30px; bottom: -40px; width: 220px;
+    border: 4px solid var(--carbon); border-radius: 4px; transform: rotate(3deg);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+  }
+  .est-badge {
+    position: absolute; bottom: -32px; left: 24px;
+    background: var(--red); padding: 10px 20px; border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(232,17,45,0.35);
+    font-family: "Bebas Neue", sans-serif; font-size: 28px; letter-spacing: 0.05em; color: #fff;
+  }
+  .heritage-copy p.lead, .section-para { margin-top: 24px; max-width: 560px; line-height: 1.75; color: var(--zinc-400); }
+
+  .timeline { margin-top: 56px; padding-left: 32px; border-left: 1px solid rgba(255,255,255,0.1); position: relative; }
+  .tl-item { position: relative; padding-bottom: 40px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot {
+    position: absolute; left: -37px; top: 6px; width: 12px; height: 12px;
+    border-radius: 50%; background: var(--red);
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(232,17,45,0.6); }
+    50% { box-shadow: 0 0 0 10px rgba(232,17,45,0); }
+  }
+  .tl-year { font-family: "Bebas Neue", sans-serif; font-size: 38px; letter-spacing: 0.06em; color: var(--red); }
+  .tl-title { display: block; margin-top: 2px; font-size: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; }
+  .tl-text { margin-top: 8px; max-width: 480px; font-size: 14px; line-height: 1.7; color: var(--zinc-400); }
+
+  /* ============ MODELS ============ */
+  .models-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 56px; }
+  .models-head p { max-width: 420px; font-size: 14px; line-height: 1.7; color: var(--zinc-400); }
+  .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .model-card {
+    background: var(--carbon); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;
+    overflow: hidden; display: flex; flex-direction: column; position: relative;
+    transition: transform .4s, border-color .4s, box-shadow .4s;
+  }
+  .model-card:hover { transform: translateY(-8px); border-color: rgba(232,17,45,0.6); box-shadow: 0 24px 50px rgba(232,17,45,0.12); }
+  .model-img-wrap { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+  .model-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+  .model-card:hover .model-img-wrap img { transform: scale(1.1); }
+  .model-img-wrap .shade { position: absolute; inset: 0; background: linear-gradient(0deg, var(--carbon) 0%, transparent 60%); }
+  .model-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: rgba(10,10,11,0.8); backdrop-filter: blur(6px);
+    padding: 6px 12px; border-radius: 4px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--red-400);
+  }
+  .model-specs { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 8px; }
+  .model-specs em {
+    font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    color: #fff; background: rgba(10,10,11,0.7); border: 1px solid rgba(255,255,255,0.2);
+    padding: 4px 10px; border-radius: 4px; backdrop-filter: blur(6px);
+  }
+  .model-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .model-name { font-family: "Bebas Neue", sans-serif; font-size: 30px; letter-spacing: 0.06em; color: #fff; }
+  .model-desc { margin-top: 8px; flex: 1; font-size: 14px; line-height: 1.65; color: var(--zinc-400); }
+  .model-link {
+    margin-top: 24px; display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--red-400); transition: gap .3s, color .3s;
+  }
+  .model-link:hover { gap: 16px; color: var(--red-300, var(--red-400)); }
+  .model-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+  .model-card::after {
+    content: ""; position: absolute; bottom: 0; left: 0; height: 2px; width: 0;
+    background: var(--red); transition: width .5s;
+  }
+  .model-card:hover::after { width: 100%; }
+
+  /* ============ PERFORMANCE ============ */
+  .perf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .perf-media { position: relative; order: 1; }
+  .perf-media .main-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 4px; transition: transform .7s; }
+  .perf-media:hover .main-img { transform: scale(1.03); }
+  .perf-media .shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,10,11,0.9) 0%, transparent 55%, rgba(232,17,45,0.08) 100%); border-radius: 4px; }
+  .engine-card {
+    position: absolute; left: 24px; right: 24px; bottom: 24px;
+    background: rgba(10,10,11,0.8); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 20px 24px;
+  }
+  .engine-card small { font-size: 11px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red-400); }
+  .engine-card b { display: block; margin-top: 4px; font-family: "Bebas Neue", sans-serif; font-size: 36px; font-weight: 400; letter-spacing: 0.05em; color: #fff; }
+  .engine-card p { margin-top: 2px; font-size: 14px; color: var(--zinc-400); }
+  .frame-red-rt { position: absolute; top: -20px; right: -20px; width: 144px; height: 144px; border-top: 2px solid var(--red); border-right: 2px solid var(--red); }
+
+  .spec-bars { margin-top: 48px; display: grid; gap: 28px; }
+  .spec-row .spec-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 8px; }
+  .spec-row .spec-head span { font-size: 13px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--zinc-300); }
+  .spec-row .spec-head b { font-family: "Bebas Neue", sans-serif; font-size: 24px; font-weight: 400; letter-spacing: 0.06em; color: var(--red-400); }
+  .spec-track { height: 8px; border-radius: 99px; background: rgba(255,255,255,0.1); overflow: hidden; }
+  .spec-fill {
+    height: 100%; width: 0; border-radius: 99px;
+    background: linear-gradient(90deg, var(--red-600), var(--red-400));
+    box-shadow: 0 0 12px rgba(232,17,45,0.6);
+    transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .mini-stats { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .mini-stat { border: 1px solid rgba(255,255,255,0.1); background: var(--carbon-2); border-radius: 4px; padding: 16px; text-align: center; transition: border-color .3s; }
+  .mini-stat:hover { border-color: rgba(232,17,45,0.5); }
+  .mini-stat b { font-family: "Bebas Neue", sans-serif; font-size: 30px; font-weight: 400; letter-spacing: 0.06em; color: #fff; }
+  .mini-stat small { display: block; margin-top: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--zinc-500); }
+
+  /* ============ INTERIOR ============ */
+  .interior-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .feature-grid { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .feature {
+    background: var(--carbon); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;
+    padding: 20px; transition: transform .3s, border-color .3s, box-shadow .3s;
+  }
+  .feature:hover { transform: translateY(-4px); border-color: rgba(232,17,45,0.5); box-shadow: 0 16px 40px rgba(232,17,45,0.1); }
+  .feature .num {
+    width: 36px; height: 36px; border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    background: rgba(232,17,45,0.15); color: var(--red-400);
+    font-family: "Bebas Neue", sans-serif; font-size: 18px; margin-bottom: 12px; transition: background .3s, color .3s;
+  }
+  .feature:hover .num { background: var(--red); color: #fff; }
+  .feature h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; }
+  .feature p { margin-top: 8px; font-size: 14px; line-height: 1.65; color: var(--zinc-400); }
+  .interior-media { position: relative; }
+  .interior-media .main-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 4px; transition: transform .7s; }
+  .interior-media:hover .main-img { transform: scale(1.04); }
+  .interior-media .shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,10,11,0.8) 0%, transparent 60%); border-radius: 4px; }
+  .idle-badge {
+    position: absolute; left: -24px; bottom: -20px; display: flex; align-items: center; gap: 16px;
+    background: rgba(10,10,11,0.9); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 16px 20px;
+  }
+  .idle-badge .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--red); animation: pulseDot 2s ease-in-out infinite; }
+  .idle-badge small { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red-400); }
+  .idle-badge b { display: block; font-family: "Bebas Neue", sans-serif; font-size: 24px; font-weight: 400; letter-spacing: 0.06em; color: #fff; }
+
+  /* ============ GALLERY ============ */
+  .gallery-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 48px; }
+  .gallery-head p { max-width: 420px; font-size: 14px; line-height: 1.7; color: var(--zinc-400); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; grid-auto-rows: 240px; }
+  .g-item { position: relative; overflow: hidden; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+  .g-item.big { grid-column: span 2; grid-row: span 2; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+  .g-item:hover img { transform: scale(1.1); }
+  .g-item .shade {
+    position: absolute; inset: 0; opacity: 0.85;
+    background: linear-gradient(0deg, rgba(10,10,11,0.95) 0%, rgba(10,10,11,0.2) 55%, transparent 100%);
+    transition: opacity .4s;
+  }
+  .g-item:hover .shade { opacity: 1; }
+  .g-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px; transform: translateY(8px); transition: transform .4s; }
+  .g-item:hover .g-cap { transform: translateY(0); }
+  .g-cap small { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red-400); }
+  .g-cap p { margin-top: 4px; font-family: "Bebas Neue", sans-serif; font-size: 22px; letter-spacing: 0.06em; color: #fff; }
+  .g-corner { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-top: 1px solid rgba(255,255,255,0.4); border-right: 1px solid rgba(255,255,255,0.4); opacity: 0; transition: opacity .4s; }
+  .g-item:hover .g-corner { opacity: 1; }
+
+  /* ============ CTA ============ */
+  .cta { position: relative; overflow: hidden; padding: 120px 0; text-align: center; }
+  .cta-bg { position: absolute; inset: 0; }
+  .cta-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .cta-bg .overlay-red { position: absolute; inset: 0; background: var(--red-600); mix-blend-mode: multiply; opacity: 0.85; }
+  .cta-bg .overlay-fade { position: absolute; inset: 0; background: linear-gradient(180deg, var(--carbon) 0%, rgba(198,8,34,0.6) 50%, var(--carbon) 100%); }
+  .cta-bg .stripes { position: absolute; inset: 0; opacity: 0.4; }
+  .cta-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; padding: 0 24px; }
+  .cta-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(56px, 9vw, 120px); line-height: 0.9; letter-spacing: 0.03em; color: #fff;
+  }
+  .cta-sub { margin: 24px auto 0; max-width: 560px; line-height: 1.7; color: var(--zinc-200); }
+  .cta-form { margin: 40px auto 0; max-width: 480px; display: flex; gap: 12px; }
+  .cta-form input {
+    flex: 1; background: rgba(10,10,11,0.7); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px; padding: 16px 20px; font-size: 14px; color: #fff;
+    font-family: inherit; outline: none; backdrop-filter: blur(8px); transition: border-color .3s;
+  }
+  .cta-form input:focus { border-color: #fff; }
+  .cta-form input::placeholder { color: var(--zinc-500); }
+  .cta-form .btn-red { border-radius: 4px; padding-inline: 32px; }
+  .cta-success {
+    display: none; margin: 40px auto 0; max-width: 440px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px; padding: 20px 24px; backdrop-filter: blur(10px);
+  }
+  .cta-success.show { display: block; }
+  .cta-success b { font-family: "Bebas Neue", sans-serif; font-size: 26px; font-weight: 400; letter-spacing: 0.06em; color: #fff; }
+  .cta-success p { margin-top: 4px; font-size: 14px; color: var(--zinc-200); }
+
+  /* ============ FOOTER ============ */
+  footer { border-top: 1px solid rgba(255,255,255,0.1); background: var(--carbon); }
+  .footer-grid { display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 48px; padding: 56px 24px 40px; max-width: 1200px; margin: 0 auto; }
+  .footer-brand p { margin-top: 16px; max-width: 320px; font-size: 14px; line-height: 1.7; color: var(--zinc-500); }
+  .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--zinc-400); margin-bottom: 16px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a, .footer-col li { font-size: 14px; color: var(--zinc-500); transition: color .3s; }
+  .footer-col a:hover { color: var(--red-400); }
+  .footer-col p { font-size: 14px; line-height: 1.7; color: var(--zinc-500); max-width: 300px; }
+  .footer-col code { background: rgba(255,255,255,0.06); border-radius: 4px; padding: 2px 6px; color: var(--red-400); font-size: 12px; }
+  .btn-top {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+    padding: 12px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #fff; transition: border-color .3s, color .3s;
+  }
+  .btn-top:hover { border-color: var(--red); color: var(--red-400); }
+  .btn-top svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1); padding: 24px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    max-width: 1200px; margin: 0 auto; font-size: 12px; color: var(--zinc-600);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .heritage-grid, .perf-grid, .interior-grid { grid-template-columns: 1fr; gap: 72px; }
+    .heritage-media { position: relative; top: 0; margin-bottom: 24px; }
+    .perf-media { order: 2; }
+    .models-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .g-item.big { grid-column: span 2; grid-row: span 1; }
+  }
+  @media (max-width: 768px) {
+    nav.links { display: none; }
+    .hamburger { display: block; }
+    .hero-stats .grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .models-head, .gallery-head { flex-direction: column; align-items: flex-start; }
+    .models-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+    .g-item.big { grid-column: span 1; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .cta-form { flex-direction: column; }
+    .hero-stats .grid { padding: 24px; }
+    .idle-badge { left: 12px; }
+    .heritage-media .small-img { width: 140px; right: -8px; }
+    .est-badge { left: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header id="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="logo">
+      <span class="logo-badge">M</span>
+      <span class="logo-text">MUSTANG<b>.</b></span>
+    </a>
+    <nav class="links">
+      <a href="#heritage">Heritage</a>
+      <a href="#models">Models</a>
+      <a href="#performance">Performance</a>
+      <a href="#interior">Interior</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#cta" class="btn-red"><span class="shine"></span><span>Build Yours</span></a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#heritage">Heritage</a>
+    <a href="#models">Models</a>
+    <a href="#performance">Performance</a>
+    <a href="#interior">Interior</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#cta" class="btn-red"><span class="shine"></span><span>Build Yours</span></a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <img src="https://images.pexels.com/photos/14741507/pexels-photo-14741507.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Ford Mustang in dramatic studio lighting" />
+    <div class="overlay-lr"></div>
+    <div class="overlay-tb"></div>
+    <div class="stripes"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="kicker reveal" style="--d:0s">Since 1964 — The Pony Car</div>
+    <h1 class="hero-title reveal" style="--d:.1s">
+      UNLEASH<br />
+      <span class="text-outline">THE</span> <span class="grad">BEAST</span>
+    </h1>
+    <p class="hero-sub reveal" style="--d:.2s">
+      Sixty years of snarling V8s, screaming redlines and unmistakable silhouettes.
+      The Ford Mustang isn't just a car — it's an American heartbeat in sheet metal.
+    </p>
+    <div class="hero-cta reveal" style="--d:.3s">
+      <a href="#models" class="btn-red"><span class="shine"></span><span>Explore the Herd</span></a>
+      <a href="#heritage" class="btn-ghost">Our Heritage</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="grid">
+      <div class="stat"><b><span data-count="500" data-suffix="+">0</span></b><small>Horsepower</small></div>
+      <div class="stat"><b><span data-count="3.5" data-decimals="1" data-suffix="s">0</span></b><small>0–60 MPH</small></div>
+      <div class="stat"><b><span data-count="180" data-suffix=" MPH">0</span></b><small>Top Speed</small></div>
+      <div class="stat"><b><span data-count="60" data-suffix="">0</span></b><small>Years of Legacy</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TICKER ================= -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <span>Pony Car <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>5.0L V8 <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>American Muscle <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>60 Years Strong <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>Coyote Engine <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>Track Born <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>Pony Car <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>5.0L V8 <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>American Muscle <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>60 Years Strong <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>Coyote Engine <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+    <span>Track Born <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+  </div>
+</div>
+
+<!-- ================= HERITAGE ================= -->
+<section class="section" id="heritage">
+  <div class="dots" style="position:absolute;inset:0"></div>
+  <div class="container" style="position:relative">
+    <div class="heritage-grid">
+      <div class="heritage-media reveal">
+        <div class="frame-red"></div>
+        <img class="main-img" src="https://images.pexels.com/photos/37144085/pexels-photo-37144085.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Classic blue Ford Mustang" />
+        <img class="small-img" src="https://images.pexels.com/photos/29028973/pexels-photo-29028973.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mustang grille emblem close-up" />
+        <div class="est-badge">EST. 1964</div>
+      </div>
+
+      <div class="heritage-copy">
+        <div class="kicker reveal">Heritage</div>
+        <h2 class="section-title reveal" style="--d:.1s">
+          SIX DECADES OF<br />
+          <span class="text-outline">PURE</span> LEGEND
+        </h2>
+        <p class="lead reveal" style="--d:.2s">
+          On April 17, 1964, Ford unveiled a car that would define an entire category.
+          Named after the P-51 Mustang fighter plane, it captured the imagination of a
+          generation — and never let go.
+        </p>
+
+        <div class="timeline">
+          <div class="tl-item reveal">
+            <span class="tl-dot"></span>
+            <span class="tl-year">1964</span>
+            <span class="tl-title">The Pony Car Is Born</span>
+            <p class="tl-text">April 17, 1964 — the Mustang debuts at the New York World's Fair. Over 22,000 orders are placed on day one. A legend gallops into history.</p>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-dot"></span>
+            <span class="tl-year">1965</span>
+            <span class="tl-title">Shelby GT350</span>
+            <p class="tl-text">Carroll Shelby turns the Mustang into a track weapon. The GT350 wins its class at SCCA and plants the pony car firmly on the podium.</p>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-dot"></span>
+            <span class="tl-year">1979</span>
+            <span class="tl-title">The Fox-Body Era</span>
+            <p class="tl-text">Lighter, sharper and fuel-efficient, the third-generation Mustang becomes the platform of drag strips, drift scenes and street legends worldwide.</p>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-dot"></span>
+            <span class="tl-year">2005</span>
+            <span class="tl-title">Retro Rebirth</span>
+            <p class="tl-text">The fifth generation returns to the aggressive fastback lines of the sixties — a love letter to the original that sells over a million units.</p>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-dot"></span>
+            <span class="tl-year">2015</span>
+            <span class="tl-title">Global Icon</span>
+            <p class="tl-text">The sixth generation goes independent rear suspension and goes global, becoming the best-selling sports coupe on the planet.</p>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-dot"></span>
+            <span class="tl-year">2024</span>
+            <span class="tl-title">Dark Horse Arrives</span>
+            <p class="tl-text">The most track-capable 5.0L V8 Mustang ever built. 500 horsepower of pure, unfiltered analog muscle — no hybrid, no apologies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODELS ================= -->
+<section class="section bg-alt" id="models">
+  <div class="container">
+    <div class="models-head">
+      <div>
+        <div class="kicker reveal">The Lineup</div>
+        <h2 class="section-title reveal" style="--d:.1s">CHOOSE YOUR <span class="text-outline-red">WEAPON</span></h2>
+      </div>
+      <p class="reveal" style="--d:.2s">
+        From the original recipe to the most track-capable Mustang ever built — every
+        one shares the same DNA: a soul under the hood.
+      </p>
+    </div>
+
+    <div class="models-grid">
+      <article class="model-card reveal">
+        <div class="model-img-wrap">
+          <img src="https://images.pexels.com/photos/31164335/pexels-photo-31164335.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mustang GT" loading="lazy" />
+          <div class="shade"></div>
+          <span class="model-tag">The heart of the herd</span>
+          <div class="model-specs"><em>486 HP</em><em>4.2s</em><em>163 MPH</em></div>
+        </div>
+        <div class="model-body">
+          <h3 class="model-name">MUSTANG GT</h3>
+          <p class="model-desc">5.0L Coyote V8 with 486 hp and a soundtrack that needs no playlist.</p>
+          <a href="#cta" class="model-link">Configure <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="model-card reveal" style="--d:.1s">
+        <div class="model-img-wrap">
+          <img src="https://images.pexels.com/photos/9177138/pexels-photo-9177138.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mustang Dark Horse" loading="lazy" />
+          <div class="shade"></div>
+          <span class="model-tag">Born on the track</span>
+          <div class="model-specs"><em>500 HP</em><em>3.9s</em><em>166 MPH</em></div>
+        </div>
+        <div class="model-body">
+          <h3 class="model-name">DARK HORSE</h3>
+          <p class="model-desc">500 hp, rev-matching Tremec and handling that claws at every corner.</p>
+          <a href="#cta" class="model-link">Configure <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="model-card reveal" style="--d:.2s">
+        <div class="model-img-wrap">
+          <img src="https://images.pexels.com/photos/9334965/pexels-photo-9334965.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mustang GT Convertible" loading="lazy" />
+          <div class="shade"></div>
+          <span class="model-tag">Sun. Sound. V8.</span>
+          <div class="model-specs"><em>486 HP</em><em>4.4s</em><em>155 MPH</em></div>
+        </div>
+        <div class="model-body">
+          <h3 class="model-name">GT CONVERTIBLE</h3>
+          <p class="model-desc">Drop the top, drop the hammer. Open-air muscle at its finest.</p>
+          <a href="#cta" class="model-link">Configure <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="model-card reveal" style="--d:.3s">
+        <div class="model-img-wrap">
+          <img src="https://images.pexels.com/photos/24182221/pexels-photo-24182221.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Heritage Edition Mustang" loading="lazy" />
+          <div class="shade"></div>
+          <span class="model-tag">The original recipe</span>
+          <div class="model-specs"><em>271 HP</em><em>7.2s</em><em>118 MPH</em></div>
+        </div>
+        <div class="model-body">
+          <h3 class="model-name">HERITAGE EDITION</h3>
+          <p class="model-desc">Chrome, white stripes and the spirit of April 17, 1964.</p>
+          <a href="#cta" class="model-link">Configure <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PERFORMANCE ================= -->
+<section class="section" id="performance">
+  <div class="dots" style="position:absolute;inset:0"></div>
+  <div class="container" style="position:relative">
+    <div class="perf-grid">
+      <div class="perf-media reveal">
+        <div class="frame-red-rt"></div>
+        <img class="main-img" src="https://images.pexels.com/photos/10446869/pexels-photo-10446869.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Mustang in a dimly lit garage" loading="lazy" />
+        <div class="shade"></div>
+        <div class="engine-card">
+          <small>Powertrain</small>
+          <b>5.0L COYOTE V8</b>
+          <p>DOHC · 32 valves · flat-plane soundtrack</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="kicker reveal">Performance</div>
+        <h2 class="section-title reveal" style="--d:.1s">NUMBERS THAT<br /><span class="text-outline">SPEAK</span> IN V8</h2>
+        <p class="section-para reveal" style="--d:.2s">
+          Every Mustang is a physics lesson with a louder soundtrack. Here's what
+          happens when you put your foot down — and keep it there.
+        </p>
+
+        <div class="spec-bars">
+          <div class="spec-row reveal">
+            <div class="spec-head"><span>Horsepower</span><b>500 HP</b></div>
+            <div class="spec-track"><div class="spec-fill" data-width="100"></div></div>
+          </div>
+          <div class="spec-row reveal" style="--d:.1s">
+            <div class="spec-head"><span>Torque</span><b>418 LB-FT</b></div>
+            <div class="spec-track"><div class="spec-fill" data-width="100"></div></div>
+          </div>
+          <div class="spec-row reveal" style="--d:.2s">
+            <div class="spec-head"><span>0–60 MPH</span><b>3.5 SEC</b></div>
+            <div class="spec-track"><div class="spec-fill" data-width="88"></div></div>
+          </div>
+          <div class="spec-row reveal" style="--d:.3s">
+            <div class="spec-head"><span>¼ Mile</span><b>11.8 SEC</b></div>
+            <div class="spec-track"><div class="spec-fill" data-width="98"></div></div>
+          </div>
+        </div>
+
+        <div class="mini-stats reveal" style="--d:.3s">
+          <div class="mini-stat"><b>3.5s</b><small>0–60 MPH</small></div>
+          <div class="mini-stat"><b>11.8s</b><small>¼ Mile</small></div>
+          <div class="mini-stat"><b>1.0G</b><small>Lateral Grip</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTERIOR ================= -->
+<section class="section bg-alt" id="interior">
+  <div class="container">
+    <div class="interior-grid">
+      <div>
+        <div class="kicker reveal">The Cockpit</div>
+        <h2 class="section-title reveal" style="--d:.1s">COMMAND<br /><span class="text-outline">THE</span> ROAD</h2>
+        <p class="section-para reveal" style="--d:.2s">
+          Modern tech wrapped in old-school attitude. The Mustang cabin is built
+          around the driver — everything within reach, everything engineered for the drive.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature reveal">
+            <div class="num">01</div>
+            <h3>12.4" Digital Cluster</h3>
+            <p>A fully configurable instrument panel with Track Apps, lap timers and a shift light right in your line of sight.</p>
+          </div>
+          <div class="feature reveal" style="--d:.1s">
+            <div class="num">02</div>
+            <h3>MagneRide Dampers</h3>
+            <p>Magnetorheological suspension that reads the road a thousand times a second. Smooth on the street, razor sharp on the circuit.</p>
+          </div>
+          <div class="feature reveal" style="--d:.2s">
+            <div class="num">03</div>
+            <h3>Recaro Sport Seats</h3>
+            <p>Aggressive bolsters wrapped in leather and suede that hold you through 1G corners without sacrificing comfort.</p>
+          </div>
+          <div class="feature reveal" style="--d:.3s">
+            <div class="num">04</div>
+            <h3>B&O Premium Audio</h3>
+            <p>A 12-speaker Bang & Olufsen system tuned for the cabin — though the V8 makes the best track on the list.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="interior-media reveal" style="--d:.15s">
+        <img class="main-img" src="https://images.pexels.com/photos/29248398/pexels-photo-29248398.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Ford Mustang premium leather interior" loading="lazy" />
+        <div class="shade"></div>
+        <div class="idle-badge">
+          <span class="dot"></span>
+          <div>
+            <small>Engine Running</small>
+            <b>IDLE: 800 RPM</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="section" id="gallery">
+  <div class="dots" style="position:absolute;inset:0"></div>
+  <div class="container" style="position:relative">
+    <div class="gallery-head">
+      <div>
+        <div class="kicker reveal">Gallery</div>
+        <h2 class="section-title reveal" style="--d:.1s">ICONS IN <span class="text-outline">THE WILD</span></h2>
+      </div>
+      <p class="reveal" style="--d:.2s">
+        From pristine classics to modern predators — a look at Mustangs living their
+        best lives on roads everywhere.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      <figure class="g-item big reveal">
+        <img src="https://images.pexels.com/photos/15554864/pexels-photo-15554864.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Sunlit Ford Mustang at a dealership" loading="lazy" />
+        <div class="shade"></div>
+        <span class="g-corner"></span>
+        <figcaption class="g-cap"><small>GT Fastback</small><p>SUNRISE OVER THE LOT</p></figcaption>
+      </figure>
+      <figure class="g-item reveal" style="--d:.1s">
+        <img src="https://images.pexels.com/photos/30538948/pexels-photo-30538948.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Yellow Mustang on a cobblestone street" loading="lazy" />
+        <div class="shade"></div>
+        <span class="g-corner"></span>
+        <figcaption class="g-cap"><small>GT Convertible</small><p>CITY CANYON RUNNER</p></figcaption>
+      </figure>
+      <figure class="g-item reveal" style="--d:.2s">
+        <img src="https://images.pexels.com/photos/30302942/pexels-photo-30302942.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Red Mustang GT in Texas" loading="lazy" />
+        <div class="shade"></div>
+        <span class="g-corner"></span>
+        <figcaption class="g-cap"><small>GT Premium</small><p>RACING RED, TEXAS SUN</p></figcaption>
+      </figure>
+      <figure class="g-item reveal">
+        <img src="https://images.pexels.com/photos/11189635/pexels-photo-11189635.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Vintage Mustang in grayscale" loading="lazy" />
+        <div class="shade"></div>
+        <span class="g-corner"></span>
+        <figcaption class="g-cap"><small>1965 Fastback</small><p>TIMELESS CHROME</p></figcaption>
+      </figure>
+      <figure class="g-item reveal" style="--d:.1s">
+        <img src="https://images.pexels.com/photos/29028973/pexels-photo-29028973.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mustang pony badge" loading="lazy" />
+        <div class="shade"></div>
+        <span class="g-corner"></span>
+        <figcaption class="g-cap"><small>Pony Badge</small><p>THE BADGE OF A LEGEND</p></figcaption>
+      </figure>
+      <figure class="g-item reveal" style="--d:.2s">
+        <img src="https://images.pexels.com/photos/9177138/pexels-photo-9177138.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Black Mustang on a city street at dusk" loading="lazy" />
+        <div class="shade"></div>
+        <span class="g-corner"></span>
+        <figcaption class="g-cap"><small>Dark Horse</small><p>NIGHT STALKER</p></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta" id="cta">
+  <div class="cta-bg">
+    <img src="https://images.pexels.com/photos/31164335/pexels-photo-31164335.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Red Ford Mustang GT" loading="lazy" />
+    <div class="overlay-red"></div>
+    <div class="overlay-fade"></div>
+    <div class="stripes"></div>
+  </div>
+  <div class="cta-inner">
+    <div class="kicker center reveal">The Road Is Calling</div>
+    <h2 class="cta-title reveal" style="--d:.1s">FEEL THE<br />THUNDER</h2>
+    <p class="cta-sub reveal" style="--d:.2s">
+      Drop your email for exclusive news, event invites and a front-row seat to the
+      next 60 years of Mustang.
+    </p>
+    <form class="cta-form reveal" style="--d:.3s" id="ctaForm">
+      <input type="email" id="ctaEmail" placeholder="your@email.com" required />
+      <button type="submit" class="btn-red"><span class="shine"></span><span>Rev It Up</span></button>
+    </form>
+    <div class="cta-success" id="ctaSuccess">
+      <b>YOU'RE ON THE LIST. 🐎</b>
+      <p>Keep an ear out — the engine's warming up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#top" class="logo">
+        <span class="logo-badge">M</span>
+        <span class="logo-text">MUSTANG<b>.</b></span>
+      </a>
+      <p>Sixty years of American muscle, freedom and the open road. Built for those who hear the call of the V8.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#heritage">Heritage</a></li>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#interior">Interior</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Deploy It</h4>
+      <p>This page is one self-contained HTML file — upload it to GitHub Pages and it's live.</p>
+      <a href="#top" class="btn-top">
+        Back to Top
+        <svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Mustang Landing Page. Built with HTML + CSS + JS. 🐎</p>
+    <p>Fan-made tribute — not affiliated with Ford Motor Company.</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    "use strict";
+
+    /* Year */
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* Navbar scroll state */
+    var navbar = document.getElementById("navbar");
+    function onScroll() {
+      navbar.classList.toggle("scrolled", window.scrollY > 40);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    /* Mobile menu */
+    var hamburger = document.getElementById("hamburger");
+    var mobileMenu = document.getElementById("mobileMenu");
+    hamburger.addEventListener("click", function () {
+      hamburger.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
+    });
+    mobileMenu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      });
+    });
+
+    /* Scroll reveal */
+    var revealEls = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var delay = entry.target.style.getPropertyValue("--d") || "0s";
+            entry.target.style.transitionDelay = delay;
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add("visible"); });
+    }
+
+    /* Hero count-up */
+    function animateCount(el) {
+      var target = parseFloat(el.dataset.count);
+      var decimals = parseInt(el.dataset.decimals || "0", 10);
+      var suffix = el.dataset.suffix || "";
+      var duration = 1800;
+      var start = null;
+      function step(now) {
+        if (!start) start = now;
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = (target * eased).toFixed(decimals) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var counters = document.querySelectorAll("[data-count]");
+    if ("IntersectionObserver" in window) {
+      var countObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            countObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(function (el) { countObserver.observe(el); });
+    } else {
+      counters.forEach(function (el) {
+        el.textContent = parseFloat(el.dataset.count).toFixed(parseInt(el.dataset.decimals || "0", 10)) + (el.dataset.suffix || "");
+      });
+    }
+
+    /* Spec bars */
+    var fills = document.querySelectorAll(".spec-fill");
+    if ("IntersectionObserver" in window) {
+      var barObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.width = entry.target.dataset.width + "%";
+            barObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      fills.forEach(function (el) { barObserver.observe(el); });
+    } else {
+      fills.forEach(function (el) { el.style.width = el.dataset.width + "%"; });
+    }
+
+    /* CTA form */
+    var form = document.getElementById("ctaForm");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = document.getElementById("ctaEmail");
+      if (email.value.trim()) {
+        form.style.display = "none";
+        document.getElementById("ctaSuccess").classList.add("show");
+      }
+    });
+  })();
+</script>
+</body>
+</html>
